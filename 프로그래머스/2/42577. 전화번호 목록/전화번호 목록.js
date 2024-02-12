@@ -1,14 +1,13 @@
 function solution(phone_book) {
-    const obj = {}
-    for (let i=0 ;i<phone_book.length; i++) {
-        obj[phone_book[i]] = true
+    const hashMap = {}
+    
+    for (const num of phone_book) {
+        hashMap[num]= true
     }
-    for (let i=0 ;i<phone_book.length; i++) {
-        const num = phone_book[i];
-        for (let j=0 ;j<phone_book[i].length; j++) {
-            if(obj[num.slice(0, j)]) return false
+    
+    for (const num of phone_book) {
+        for (let i=0 ; i<num.length ; i++) {
+            if(hashMap[num.substring(0, i)]) return false
         }
-    }
-    return true
+    } return true
 }
-
