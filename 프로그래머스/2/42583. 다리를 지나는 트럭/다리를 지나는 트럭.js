@@ -26,6 +26,5 @@ function solution(bridge_length, weight, truck_weights) {
 
     if (truckSet.length === 0 && onBridge.length === 0) break;
   }
-
   return sec;
 }
