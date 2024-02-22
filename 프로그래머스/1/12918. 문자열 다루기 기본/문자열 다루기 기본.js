@@ -1,4 +1,4 @@
 function solution(s) {
-    return s.split("").filter(v=>!isNaN(+v)).length === s.length && 
-        (s.length===4 || s.length===6)     
+    return s.split("").every((v)=>!isNaN(v)) &&
+        (s.length===4 || s.length===6);
 }
