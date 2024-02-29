@@ -6,12 +6,10 @@ class MinHeap {
     getlength() {
         return this.heap.length
     }
-    
     swap(idx, idx2) {
         [this.heap[idx], this.heap[idx2]] = [this.heap[idx2], this.heap[idx]]
         return
     }
-    
     push(value) {
         this.heap.push(value)
         if(this.heap.length === 1) return
@@ -25,7 +23,6 @@ class MinHeap {
             pIdx = Math.floor((idx-1) / 2)
         }
     }
-    
     del() {
         if (this.heap.length === 1) return this.heap.pop();
         const root = this.heap[0]
@@ -64,9 +61,8 @@ function solution(jobs) {
             jobsQueue.push(jobs[i])
             i++
         }
-        if(jobsQueue.getlength() === 0 && i < jobs.length) {
-            time = jobs[i][0]  
-        } 
+        if(jobsQueue.getlength() === 0 && i < jobs.length) time = jobs[i][0]  
+    
         if (jobsQueue.getlength() > 0) {
             const poppedJob = jobsQueue.del()
             time += poppedJob[1]
