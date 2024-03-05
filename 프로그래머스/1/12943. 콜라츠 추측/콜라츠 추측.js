@@ -1,14 +1,8 @@
 function solution(num) {
     var answer = 0;
-    let count = 0;
-    
-    function collatz(n) {
-        if(n===1) return answer
-        answer++
-        if(count===500) return -1
-        count++    
-        if (n%2===0) return collatz(n/2)
-        if (n%2!==0) return collatz((3*n)+1) 
-    }
-    return num===1 ? 0 : collatz(num)
+    while(num !=1 && answer !=500){
+        num%2==0 ? num = num/2 : num = num*3 +1;
+    answer++;
+  }
+    return num == 1 ? answer : -1;
 }
