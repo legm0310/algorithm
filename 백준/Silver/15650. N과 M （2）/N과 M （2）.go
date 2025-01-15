@@ -25,12 +25,12 @@ func scanInt() (int, error) {
 	return strconv.Atoi(s.Text())
 }
 
-func recursion(num int, numArr []int) {
+func recursion(num int, numArr *[]int) {
 	if num == M {
-		if slices.IsSorted(numArr) == false {
+		if slices.IsSorted(*numArr) == false {
 			return
 		}
-		for _, v := range numArr {
+		for _, v := range *numArr {
 			w.WriteString(strconv.Itoa(v))
 			w.WriteString(" ")
 		}
@@ -39,10 +39,12 @@ func recursion(num int, numArr []int) {
 	}
 
 	for i := 1; i < N+1; i++ {
-		if slices.Contains(numArr, i) {
+		if slices.Contains(*numArr, i) {
 			continue
 		}
-		recursion(num+1, append(numArr, i))
+		*numArr = append(*numArr, i)
+		recursion(num+1, numArr)
+		*numArr = (*numArr)[:len(*numArr)-1]
 	}
 }
 
@@ -51,5 +53,5 @@ func main() {
 	N, _ = scanInt()
 	M, _ = scanInt()
 	arr := make([]int, 0)
-	recursion(0, arr)
+	recursion(0, &arr)
 }
