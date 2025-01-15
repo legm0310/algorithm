@@ -52,6 +52,6 @@ func main() {
 	defer w.Flush()
 	N, _ = scanInt()
 	M, _ = scanInt()
-	arr := make([]int, 0)
+	arr := []int{}
 	recursion(0, &arr)
 }
