@@ -5,7 +5,6 @@ import (
 	"os"
 	"slices"
 	"strconv"
-	"strings"
 )
 
 var (
@@ -31,12 +30,11 @@ func recursion(num int, numArr []int) {
 		if slices.IsSorted(numArr) == false {
 			return
 		}
-		strArr := make([]string, len(numArr))
-		for i, v := range numArr {
-			strArr[i] = strconv.Itoa(v)
+		for _, v := range numArr {
+			w.WriteString(strconv.Itoa(v))
+			w.WriteString(" ")
 		}
-		w.WriteString(strings.Join(strArr, " "))
-		w.WriteString("\n")
+		w.WriteByte('\n')
 		return
 	}
 
