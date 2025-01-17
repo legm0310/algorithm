@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"os"
-	"slices"
 	"strconv"
 )
 
@@ -28,9 +27,6 @@ func scanInt() (int, error) {
 
 func recursion(num, dep int) {
 	if dep == M {
-		if slices.IsSorted(arr) == false {
-			return
-		}
 		for i := 0; i < M; i++ {
 			w.WriteString(strconv.Itoa(arr[i]))
 			w.WriteByte(' ')
@@ -38,8 +34,11 @@ func recursion(num, dep int) {
 		w.WriteByte('\n')
 		return
 	}
-	for i := num; i <= N; i++ {
-		arr[dep] = i
+	for i := 0; i < N; i++ {
+		if dep > 0 && arr[dep-1] > i+1 {
+			continue
+		}
+		arr[dep] = i + 1
 		recursion(num, dep+1)
 	}
 }
