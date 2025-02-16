@@ -27,25 +27,21 @@ func scanInt() (int, error) {
 	return strconv.Atoi(s.Text())
 }
 
-func recursion(idx int, seqArr *[]int, ingrArr *[]int) {
-	if MI[0] <= (*ingrArr)[0] && MI[1] <= (*ingrArr)[1] && MI[2] <= (*ingrArr)[2] && MI[3] <= (*ingrArr)[3] {
-		if (*ingrArr)[4] < result {
-			resultSeq = append([]int{}, *seqArr...)
-			result = (*ingrArr)[4]
+func recursion(idx, P, F, S, V, C int, seq *[]int) {
+	if MI[0] <= P && MI[1] <= F && MI[2] <= S && MI[3] <= V {
+		if result > C {
+			result = C
+			resultSeq = append([]int{}, *seq...)
 		}
 		return
 	}
-	for i := idx; i < N; i++ {
-		*seqArr = append(*seqArr, i+1)
-		for j := 0; j < 5; j++ {
-			(*ingrArr)[j] += I[i][j]
-		}
-		recursion(i+1, seqArr, ingrArr)
-		*seqArr = (*seqArr)[:len(*seqArr)-1]
-		for j := 0; j < 5; j++ {
-			(*ingrArr)[j] -= I[i][j]
-		}
+	if idx == N {
+		return
 	}
+	*seq = append(*seq, idx+1)
+	recursion(idx+1, P+I[idx][0], F+I[idx][1], S+I[idx][2], V+I[idx][3], C+I[idx][4], seq)
+	*seq = (*seq)[:len(*seq)-1]
+	recursion(idx+1, P, F, S, V, C, seq)
 }
 
 func main() {
@@ -62,9 +58,10 @@ func main() {
 			I[i][j], _ = scanInt()
 		}
 	}
-	seqArr := make([]int, 0)
-	ingrArr := make([]int, 5)
-	recursion(0, &seqArr, &ingrArr)
+
+	seq := make([]int, 0)
+	recursion(0, 0, 0, 0, 0, 0, &seq)
+
 	if len(resultSeq) == 0 {
 		w.WriteString("-1\n")
 	} else {
