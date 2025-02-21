@@ -52,7 +52,7 @@ func main() {
 	}
 	dp = make([][]int, N)
 	for i := range dp {
-		dp[i] = make([]int, 100001)
+		dp[i] = make([]int, K+1)
 		for j := range dp[i] {
 			dp[i][j] = -1
 		}
