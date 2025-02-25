@@ -26,20 +26,6 @@ func scanInt() (int, error) {
 	return strconv.Atoi(s.Text())
 }
 
-func recursion(idx, weight int) int {
-	if weight > K {
-		return -9999999
-	}
-	if idx == N {
-		return 0
-	}
-	if dp[idx][weight] != -1 {
-		return dp[idx][weight]
-	}
-	dp[idx][weight] = max(recursion(idx+1, weight+T[idx][0])+T[idx][1], recursion(idx+1, weight))
-	return dp[idx][weight]
-}
-
 func main() {
 	defer w.Flush()
 	N, _ = scanInt()
@@ -50,13 +36,28 @@ func main() {
 		T[i][0], _ = scanInt()
 		T[i][1], _ = scanInt()
 	}
-	dp = make([][]int, N)
+	dp = make([][]int, N+1)
 	for i := range dp {
 		dp[i] = make([]int, K+1)
-		for j := range dp[i] {
-			dp[i][j] = -1
+	}
+
+	for weight := 0; weight <= K; weight++ {
+		if weight >= T[0][0] {
+			dp[0][weight] = T[0][1]
 		}
 	}
-	w.WriteString(strconv.Itoa(recursion(0, 0)))
+
+	for idx := 1; idx < N; idx++ {
+		for weight := 1; weight < K+1; weight++ {
+			if idx == 0 {
+				dp[idx][weight] = 0
+			} else if weight < T[idx][0] {
+				dp[idx][weight] = dp[idx-1][weight]
+			} else {
+				dp[idx][weight] = max(dp[idx-1][weight-T[idx][0]]+T[idx][1], dp[idx-1][weight])
+			}
+		}
+	}
+	w.WriteString(strconv.Itoa(dp[N-1][K]))
 	w.WriteByte('\n')
 }
