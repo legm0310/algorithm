@@ -36,27 +36,21 @@ func main() {
 		input[i][1], _ = scanInt()
 		input[i][2], _ = scanInt()
 	}
-
 	for idx, _ := range maxDp {
-		for j := 0; j < 3; j++ {
-			if idx == 0 {
-				maxDp[idx][j] = input[idx][j]
-				minDp[idx][j] = input[idx][j]
-			} else {
-				if j == 0 {
-					maxDp[idx][j] = input[idx][j] + max(maxDp[idx-1][j], maxDp[idx-1][j+1])
-					minDp[idx][j] = input[idx][j] + min(minDp[idx-1][j], minDp[idx-1][j+1])
-				}
-				if j == 1 {
-					maxDp[idx][j] = input[idx][j] + max(max(maxDp[idx-1][j-1], maxDp[idx-1][j]), maxDp[idx-1][j+1])
-					minDp[idx][j] = input[idx][j] + min(min(minDp[idx-1][j-1], minDp[idx-1][j]), minDp[idx-1][j+1])
-				}
-				if j == 2 {
-					maxDp[idx][j] = input[idx][j] + max(maxDp[idx-1][j-1], maxDp[idx-1][j])
-					minDp[idx][j] = input[idx][j] + min(minDp[idx-1][j-1], minDp[idx-1][j])
-				}
-			}
-
+		if idx == 0 {
+			maxDp[idx][0] = input[idx][0]
+			maxDp[idx][1] = input[idx][1]
+			maxDp[idx][2] = input[idx][2]
+			minDp[idx][0] = input[idx][0]
+			minDp[idx][1] = input[idx][1]
+			minDp[idx][2] = input[idx][2]
+		} else {
+			maxDp[idx][0] = input[idx][0] + max(maxDp[idx-1][0], maxDp[idx-1][1])
+			maxDp[idx][1] = input[idx][1] + max(max(maxDp[idx-1][0], maxDp[idx-1][1]), maxDp[idx-1][2])
+			maxDp[idx][2] = input[idx][2] + max(maxDp[idx-1][1], maxDp[idx-1][2])
+			minDp[idx][0] = input[idx][0] + min(minDp[idx-1][0], minDp[idx-1][1])
+			minDp[idx][1] = input[idx][1] + min(min(minDp[idx-1][0], minDp[idx-1][1]), minDp[idx-1][2])
+			minDp[idx][2] = input[idx][2] + min(minDp[idx-1][1], minDp[idx-1][2])
 		}
 	}
 	w.WriteString(strconv.Itoa(max(max(maxDp[N-1][0], maxDp[N-1][1]), maxDp[N-1][2])))
