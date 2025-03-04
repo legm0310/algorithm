@@ -24,21 +24,24 @@ func main() {
 	s.Scan()
 	str2 := s.Text()
 	n, m := len(str1), len(str2)
-	lcs := make([][]int, n+1)
-	for i := 0; i < n+1; i++ {
-		lcs[i] = make([]int, m+1)
-	}
+	lcs := make([]int, max(n, m))
 
-	for i := 1; i < n+1; i++ {
-		for j := 1; j < m+1; j++ {
-			if str1[i-1] == str2[j-1] {
-				lcs[i][j] = lcs[i-1][j-1] + 1
-			} else {
-				lcs[i][j] = max(lcs[i-1][j], lcs[i][j-1])
+	for i := 0; i < n; i++ {
+		ml := 0
+		for j := 0; j < m; j++ {
+			if ml < lcs[j] {
+				ml = lcs[j]
+			} else if str1[i] == str2[j] {
+				lcs[j] = ml + 1
 			}
 		}
 	}
-
-	w.WriteString(strconv.Itoa(lcs[n][m]))
+	result := 0
+	for i := 0; i < m; i++ {
+		if lcs[i] > result {
+			result = lcs[i]
+		}
+	}
+	w.WriteString(strconv.Itoa(result))
 	w.WriteByte('\n')
 }
