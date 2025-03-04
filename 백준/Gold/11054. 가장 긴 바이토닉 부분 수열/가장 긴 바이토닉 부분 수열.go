@@ -37,7 +37,7 @@ func main() {
 	for i := 0; i < N; i++ {
 		lis[i] = 1
 		// i까지 연결 가능한 증가하는 부분 수열 찾기
-		for j := 0; j < N; j++ {
+		for j := 0; j < i; j++ {
 			if A[j] < A[i] {
 				lis[i] = max(lis[i], lis[j]+1)
 			}
