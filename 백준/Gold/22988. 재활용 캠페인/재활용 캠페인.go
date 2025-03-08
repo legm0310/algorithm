@@ -35,9 +35,9 @@ func main() {
 
 	start := 0
 	end := n - 1
-
 	remain := 0
 	cnt := 0
+    
 	for start <= end {
 		if arr[end] == x {
 			cnt++
