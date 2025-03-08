@@ -31,12 +31,8 @@ func main() {
 	stack := make([]rune, 0)
 	for _, v := range str {
 		stack = append(stack, v)
-		for len(stack) >= len(subStr) {
-			if string(stack[len(stack)-len(subStr):]) == string(subStr) {
-				stack = stack[:len(stack)-len(subStr)]
-			} else {
-				break
-			}
+		if len(stack) >= len(subStr) && string(stack[len(stack)-len(subStr):]) == subStr {
+			stack = stack[:len(stack)-len(subStr)]
 		}
 	}
 	if len(stack) == 0 {
