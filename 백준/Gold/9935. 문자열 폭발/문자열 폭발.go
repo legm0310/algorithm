@@ -23,6 +23,11 @@ func main() {
 	subStr, _ := r.ReadString('\n')
 	subStr = strings.TrimSpace(subStr)
 
+	if len(str) < len(subStr) {
+		w.WriteString(str + "\n")
+		return
+	}
+
 	stack := make([]rune, 0)
 	for _, v := range str {
 		stack = append(stack, v)
