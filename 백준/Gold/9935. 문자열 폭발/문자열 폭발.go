@@ -16,6 +16,7 @@ func init() {
 	w = bufio.NewWriter(os.Stdout)
 }
 
+
 func main() {
 	defer w.Flush()
 	str, _ := r.ReadString('\n')
@@ -28,9 +29,9 @@ func main() {
 		return
 	}
 
-	stack := make([]rune, 0)
-	for _, v := range str {
-		stack = append(stack, v)
+	stack := make([]byte, 0)
+	for i := 0; i < len(str); i++ {
+		stack = append(stack, str[i])
 		if len(stack) >= len(subStr) && string(stack[len(stack)-len(subStr):]) == subStr {
 			stack = stack[:len(stack)-len(subStr)]
 		}
