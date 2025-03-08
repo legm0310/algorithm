@@ -24,12 +24,11 @@ func main() {
 	subStr = strings.TrimSpace(subStr)
 
 	stack := make([]rune, 0)
-	subRunes := []rune(subStr)
 	for _, v := range str {
 		stack = append(stack, v)
-	    for len(stack) >= len(subRunes) {
-			if string(stack[len(stack)-len(subRunes):]) == string(subRunes) {
-				stack = stack[:len(stack)-len(subRunes)]
+		for len(stack) >= len(subStr) {
+			if string(stack[len(stack)-len(subStr):]) == string(subStr) {
+				stack = stack[:len(stack)-len(subStr)]
 			} else {
 				break
 			}
