@@ -53,5 +53,22 @@ func main() {
 	defer w.Flush()
 	a, _ = scanInt()
 	b, _ = scanInt()
-	w.WriteString(strconv.Itoa(dfs(a)) + "\n")
+	cnt := 1
+	for a < b {
+		if b%10 == 1 {
+			b /= 10
+		} else if b%2 == 0 {
+			b /= 2
+		} else {
+			w.WriteString(strconv.Itoa(-1) + "\n")
+			return
+		}
+		cnt++
+	}
+
+	if a == b {
+		w.WriteString(strconv.Itoa(cnt) + "\n")
+	} else {
+		w.WriteString(strconv.Itoa(-1) + "\n")
+	}
 }
