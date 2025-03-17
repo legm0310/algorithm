@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"container/list"
 	"os"
 	"strconv"
 )
@@ -32,13 +31,13 @@ func scanInt() int {
 func bfs(x, y int) {
 	dx := []int{-1, 1, 0, 0}
 	dy := []int{0, 0, -1, 1}
-	queue := list.New()
-	queue.PushBack([]int{x, y})
+	queue := make([][]int, 0)
+	queue = append(queue, []int{x, y})
 	visited[x][y] = 1
 
-	for queue.Len() > 0 {
-		target := queue.Remove(queue.Front()).([]int)
-		ex, ey := target[0], target[1]
+	for len(queue) > 0 {
+		ex, ey := queue[0][0], queue[0][1]
+		queue = queue[1:]
 
 		for d := 0; d < 4; d++ {
 			nx, ny := ex+dx[d], ey+dy[d]
@@ -47,7 +46,7 @@ func bfs(x, y int) {
 					visited[nx][ny] = 1
 					dist[nx][ny] = dist[ex][ey] + 1
 					cnt = max(cnt, dist[nx][ny])
-					queue.PushBack([]int{nx, ny})
+					queue = append(queue, []int{nx, ny})
 				}
 			}
 		}
