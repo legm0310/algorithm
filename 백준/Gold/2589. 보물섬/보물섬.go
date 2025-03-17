@@ -31,7 +31,7 @@ func scanInt() int {
 func bfs(x, y int) {
 	dx := []int{-1, 1, 0, 0}
 	dy := []int{0, 0, -1, 1}
-	queue := make([][]int, 0)
+	queue := make([][]int, 0, X*Y)
 	queue = append(queue, []int{x, y})
 	visited[x][y] = 1
 
