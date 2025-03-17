@@ -8,8 +8,6 @@ import (
 )
 
 var (
-	dx      = []int{-1, 1, 0, 0}
-	dy      = []int{0, 0, -1, 1}
 	X, Y    int
 	visited [][]int
 	dist    [][]int
@@ -32,6 +30,8 @@ func scanInt() int {
 }
 
 func bfs(x, y int) {
+	dx := []int{-1, 1, 0, 0}
+	dy := []int{0, 0, -1, 1}
 	queue := list.New()
 	queue.PushBack([]int{x, y})
 	visited[x][y] = 1
@@ -59,6 +59,8 @@ func main() {
 	X = scanInt()
 	Y = scanInt()
 	graph = make([][]byte, X)
+	visited = make([][]int, X)
+	dist = make([][]int, X)
 	for i := 0; i < X; i++ {
 		s.Scan()
 		graph[i] = s.Bytes()
@@ -67,8 +69,6 @@ func main() {
 	for i := 0; i < X; i++ {
 		for j := 0; j < Y; j++ {
 			if graph[i][j] == 'L' {
-				visited = make([][]int, X)
-				dist = make([][]int, X)
 				for k := 0; k < X; k++ {
 					visited[k] = make([]int, Y)
 					dist[k] = make([]int, Y)
