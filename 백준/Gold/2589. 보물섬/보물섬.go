@@ -8,6 +8,8 @@ import (
 )
 
 var (
+	dx      = []int{-1, 1, 0, 0}
+	dy      = []int{0, 0, -1, 1}
 	X, Y    int
 	visited [][]int
 	dist    [][]int
@@ -23,14 +25,13 @@ func init() {
 	s.Split(bufio.ScanWords)
 }
 
-func scanInt() (int, error) {
+func scanInt() int {
 	s.Scan()
-	return strconv.Atoi(s.Text())
+	x, _ := strconv.Atoi(s.Text())
+	return x
 }
 
 func bfs(x, y int) {
-	dx := []int{-1, 1, 0, 0}
-	dy := []int{0, 0, -1, 1}
 	queue := list.New()
 	queue.PushBack([]int{x, y})
 	visited[x][y] = 1
@@ -42,7 +43,7 @@ func bfs(x, y int) {
 		for d := 0; d < 4; d++ {
 			nx, ny := ex+dx[d], ey+dy[d]
 			if 0 <= nx && nx < X && 0 <= ny && ny < Y {
-				if string(graph[nx][ny]) == "L" && visited[nx][ny] == 0 {
+				if graph[nx][ny] == 'L' && visited[nx][ny] == 0 {
 					visited[nx][ny] = 1
 					dist[nx][ny] = dist[ex][ey] + 1
 					cnt = max(cnt, dist[nx][ny])
@@ -55,18 +56,17 @@ func bfs(x, y int) {
 
 func main() {
 	defer w.Flush()
-	X, _ = scanInt()
-	Y, _ = scanInt()
+	X = scanInt()
+	Y = scanInt()
 	graph = make([][]byte, X)
 	for i := 0; i < X; i++ {
-		graph[i] = make([]byte, Y)
 		s.Scan()
 		graph[i] = s.Bytes()
 	}
 
 	for i := 0; i < X; i++ {
 		for j := 0; j < Y; j++ {
-			if string(graph[i][j]) == "L" {
+			if graph[i][j] == 'L' {
 				visited = make([][]int, X)
 				dist = make([][]int, X)
 				for k := 0; k < X; k++ {
