@@ -7,8 +7,9 @@ import (
 )
 
 var (
-	X, Y    int
-	visited [][]int
+	X, Y int
+	vc      int
+	visited [51][51]int
 	dist    [][]int
 	graph   [][]byte
 	cnt     int = 0
@@ -31,9 +32,10 @@ func scanInt() int {
 func bfs(x, y int) {
 	dx := []int{-1, 1, 0, 0}
 	dy := []int{0, 0, -1, 1}
+	vc++
 	queue := make([][]int, 0, X*Y)
 	queue = append(queue, []int{x, y})
-	visited[x][y] = 1
+	visited[x][y] = vc
 
 	for len(queue) > 0 {
 		ex, ey := queue[0][0], queue[0][1]
@@ -42,8 +44,11 @@ func bfs(x, y int) {
 		for d := 0; d < 4; d++ {
 			nx, ny := ex+dx[d], ey+dy[d]
 			if 0 <= nx && nx < X && 0 <= ny && ny < Y {
-				if graph[nx][ny] == 'L' && visited[nx][ny] == 0 {
-					visited[nx][ny] = 1
+				if visited[nx][ny] == vc {
+					continue
+				}
+				if graph[nx][ny] == 'L' {
+					visited[nx][ny] = vc
 					dist[nx][ny] = dist[ex][ey] + 1
 					cnt = max(cnt, dist[nx][ny])
 					queue = append(queue, []int{nx, ny})
@@ -58,7 +63,6 @@ func main() {
 	X = scanInt()
 	Y = scanInt()
 	graph = make([][]byte, X)
-	visited = make([][]int, X)
 	dist = make([][]int, X)
 	for i := 0; i < X; i++ {
 		s.Scan()
@@ -69,7 +73,6 @@ func main() {
 		for j := 0; j < Y; j++ {
 			if graph[i][j] == 'L' {
 				for k := 0; k < X; k++ {
-					visited[k] = make([]int, Y)
 					dist[k] = make([]int, Y)
 				}
 				bfs(i, j)
