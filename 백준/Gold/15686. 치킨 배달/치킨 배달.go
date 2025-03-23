@@ -11,7 +11,7 @@ var (
 	n, m       int
 	chickenLoc [][2]int
 	homeLoc    [][2]int
-	cities     [][]int
+	cities     [50][50]int
 	ans        = 1000000
 	s          = bufio.NewScanner(os.Stdin)
 	w          = bufio.NewWriter(os.Stdout)
@@ -23,11 +23,8 @@ func main() {
 
 	n, m = scanInt(), scanInt()
 
-	cities = make([][]int, n)
-
-	for i := range cities {
-		cities[i] = make([]int, n)
-		for j := range cities[i] {
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
 			cities[i][j] = scanInt()
 		}
 	}
