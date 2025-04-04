@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 )
@@ -35,7 +34,8 @@ func main() {
 
 		melodies[line] = stack
 	}
-	fmt.Println(ans)
+	w.WriteString(strconv.Itoa(ans))
+	w.WriteByte('\n')
 }
 
 func scanInt() int {
